@@ -1,0 +1,13 @@
+[tools]
+python = "3.12"
+node = "20.11.0"
+actionlint = "1.6.26"
+# workspaced = "latest" # Tool not found in registry. Requires manual installation or custom setup.
+
+[tasks]
+install = "echo 'No dependencies to install'"
+lint = "echo 'workspaced tool not found - skipping lint'"
+fmt = "echo 'workspaced tool not found - skipping fmt'"
+test = "echo 'No tests found'"
+codegen = "echo 'No codegen'"
+ci = { depends = ["lint", "test"] }
