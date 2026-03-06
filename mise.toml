@@ -3,14 +3,13 @@ npm_config_ignore_scripts = "true"
 
 [tools]
 python = "3.12.0"
-"npm:workspaced" = "0.1.0"
 node = "20.11.1"
 
 [tasks.lint]
-run = "workspaced codebase lint"
+run = "npx workspaced codebase lint"
 
 [tasks.fmt]
-run = "workspaced codebase format"
+run = "npx workspaced codebase format"
 
 [tasks.test]
 depends = ["test:*"]
@@ -50,6 +49,8 @@ elif [ -f "pnpm-lock.yaml" ]; then
     npm install -g pnpm && pnpm install --frozen-lockfile
 elif [ -f "package.json" ]; then
     npm install
+else
+    npm install -g workspaced@0.1.0
 fi
 """
 
