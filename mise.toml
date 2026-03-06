@@ -21,6 +21,9 @@ run = "pytest"
 [tasks.codegen]
 depends = ["codegen:*"]
 
+[tasks."codegen:noop"]
+run = "echo 'No codegen tasks configured'"
+
 [tasks.install]
 depends = ["install:*"]
 
