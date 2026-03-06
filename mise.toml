@@ -1,0 +1,51 @@
+[tools]
+python = "3.12.0"
+"npm:workspaced" = "0.1.0"
+node = "20.11.1"
+
+[tasks.lint]
+run = "workspaced codebase lint"
+
+[tasks.fmt]
+run = "workspaced codebase format"
+
+[tasks.test]
+depends = ["test:*"]
+
+[tasks."test:python"]
+run = "pytest"
+
+[tasks.codegen]
+depends = ["codegen:*"]
+
+[tasks.install]
+depends = ["install:*"]
+
+[tasks."install:python"]
+run = """
+if [ -f "requirements.txt" ]; then
+    pip install -r requirements.txt
+elif [ -f "Pipfile" ]; then
+    pip install pipenv && pipenv install --dev
+elif [ -f "poetry.lock" ]; then
+    pip install poetry && poetry install
+else
+    pip install pytest
+fi
+"""
+
+[tasks."install:node"]
+run = """
+if [ -f "package-lock.json" ]; then
+    npm ci
+elif [ -f "yarn.lock" ]; then
+    npm install -g yarn && yarn install --frozen-lockfile
+elif [ -f "pnpm-lock.yaml" ]; then
+    npm install -g pnpm && pnpm install --frozen-lockfile
+elif [ -f "package.json" ]; then
+    npm install
+fi
+"""
+
+[tasks.ci]
+depends = ["lint", "test"]
