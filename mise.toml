@@ -1,0 +1,9 @@
+[tools]
+python = "2.7.18"
+
+[tasks]
+ci = { depends = ["lint:*", "test:*"] }
+"lint:format" = "echo lint format"
+"test:unit" = "python -m pytest tests/"
+"install" = "python -m pip install -r requirements.txt"
+"codegen" = "echo codegen"

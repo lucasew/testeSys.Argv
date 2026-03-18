@@ -1,0 +1,19 @@
+name: Auto Release
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v2
+      - run: mise run install
+      - run: mise run codegen
+      - run: echo "PR if diff"
+      - run: mise run ci
+      - run: echo "Release"
+      - run: echo "Artifacts"
